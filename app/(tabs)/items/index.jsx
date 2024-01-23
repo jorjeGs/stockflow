@@ -1,7 +1,7 @@
 import React from 'react'
-import { Text, View, FlatList, Image, Pressable, Alert } from 'react-native'
-// import { router } from 'expo-router'
+import { View, FlatList } from 'react-native'
 import products from '../../../src/data/products'
+import ItemCard from '../../../src/components/ItemCard'
 
 const ItemsHomePage = () => {
   return (
@@ -9,33 +9,10 @@ const ItemsHomePage = () => {
       <View style={{ marginTop: 5 }}>
         <FlatList
           ItemSeparatorComponent={() => (
-            <View style={{ height: 1, backgroundColor: 'gray' }} />
+            <View style={{ height: 1 }} />
           )}
           data={products}
-          renderItem={({ item }) => (
-            <Pressable onPress={
-            // () => router.push({
-            //   pathname: '/items/new'
-            // })
-            () => Alert.alert('Item', 'Item')
-          }
-            >
-              <View style={{ padding: 20, flex: 1, flexDirection: 'row', gap: 10, width: '100%' }}>
-                <Text style={{ width: '33.33%' }}>{item.title}</Text>
-                <View style={{ width: '33.33%', justifyContent: 'center' }}>
-                  <Text style={{ color: 'red', fontSize: 15, fontWeight: 'bold', marginRight: 'auto', marginLeft: 'auto' }}>${item.price}</Text>
-                </View>
-                <View style={{ width: '33.33%', height: 80 }}>
-                  <Image
-                    style={{ height: '100%', width: '100%', marginRight: 'auto', marginLeft: 'auto', objectFit: 'contain' }}
-                    source={{
-                      uri: item.image
-                    }}
-                  />
-                </View>
-              </View>
-            </Pressable>
-          )}
+          renderItem={({ item }) => <ItemCard item={item} />}
           keyExtractor={item => item.id}
         />
       </View>

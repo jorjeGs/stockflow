@@ -8,12 +8,18 @@ const ItemsLayout = () => {
         name='index' options={
         {
           headerShown: true,
-          headerTitle: 'Product List'
+          headerTitle: 'Item List'
         }
       }
       />
-      <Stack.Screen name='[id]' options={{ headerTitle: 'Item', headerShown: true }} />
       <Stack.Screen name='New' options={{ headerTitle: 'New Item', headerShown: true }} />
+      <Stack.Screen
+        name='[id]'
+        options={{
+          headerShown: true,
+          headerTitle: 'Item'
+        }}
+      />
     </Stack>
   )
 }
