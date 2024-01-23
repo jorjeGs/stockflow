@@ -11,6 +11,13 @@ const HomeLayout = () => {
           headerTitle: 'Dashboard'
         }}
       />
+      <Stack.Screen
+        name='[user]'
+        options={{
+          headerShown: true,
+          headerTitle: 'User'
+        }}
+      />
     </Stack>
   )
 }

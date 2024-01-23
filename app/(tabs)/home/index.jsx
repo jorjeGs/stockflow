@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, View, Alert, Pressable } from 'react-native'
+import { Text, View, Pressable } from 'react-native'
 import { router } from 'expo-router'
 
 const HomePage = () => {
@@ -7,18 +7,21 @@ const HomePage = () => {
     <View style={{ flexGrow: 1 }}>
       <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: 10 }}>
         <Pressable
-          style={{ backgroundColor: 'green', padding: 10, borderRadius: 5 }}
+          style={{ backgroundColor: 'red', padding: 10, borderRadius: 5 }}
           onPress={() => router.push({
-            pathname: 'items'
+            pathname: 'items/New'
           })}
         >
-          <Text style={{ color: 'white' }}>Go to Inventory</Text>
+          <Text style={{ color: 'white' }}>New Item</Text>
         </Pressable>
         <Pressable
-          style={{ backgroundColor: 'green', padding: 10, borderRadius: 5 }}
-          onPress={() => Alert.alert('Add Items')}
+          style={{ backgroundColor: 'red', padding: 10, borderRadius: 5 }}
+          onPress={() => router.push({
+            pathname: 'home/[user]',
+            params: { user: 'John Doe' }
+          })}
         >
-          <Text style={{ color: 'white' }}>Add Items</Text>
+          <Text style={{ color: 'white' }}>User</Text>
         </Pressable>
       </View>
     </View>

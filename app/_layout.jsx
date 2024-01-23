@@ -10,7 +10,7 @@ const RootLayout = () => {
           headerShown: true,
           headerTitle: 'StockFlow',
           headerStyle: {
-            backgroundColor: 'green'
+            backgroundColor: 'red'
           },
           headerTitleStyle: {
             color: 'white',

@@ -3,6 +3,7 @@
     "name": "stockflow-app",
     "slug": "stockflow-app",
     "scheme": "stockflow-app",
+    "jsEngine": "hermes",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
