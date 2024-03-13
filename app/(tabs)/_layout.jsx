@@ -24,7 +24,7 @@ const TabsLayout = () => {
             return (
               <View style={{ alignItems: 'center', justifyContent: 'center' }}>
                 <Entypo name='home' size={20} color={focused ? 'red' : 'black'} />
-                <Text style={{ color: focused ? 'red' : 'black' }}>Home</Text>
+                <Text style={{ color: focused ? 'red' : 'black' }}>Inicio</Text>
               </View>
             )
           }
@@ -32,13 +32,13 @@ const TabsLayout = () => {
       />
       <Tabs.Screen
         name='items' options={{
-          title: 'Inventory',
+          title: 'Items',
           headerShown: false,
           tabBarIcon: ({ focused }) => {
             return (
               <View style={{ alignItems: 'center', justifyContent: 'center' }}>
                 <MaterialIcons name='inventory' size={20} color={focused ? 'red' : 'black'} />
-                <Text style={{ color: focused ? 'red' : 'black' }}>Inventory</Text>
+                <Text style={{ color: focused ? 'red' : 'black' }}>Artículos</Text>
               </View>
             )
           }
@@ -52,7 +52,7 @@ const TabsLayout = () => {
             return (
               <View style={{ alignItems: 'center', justifyContent: 'center' }}>
                 <FontAwesome6 name='list-check' size={20} color={focused ? 'red' : 'black'} />
-                <Text style={{ color: focused ? 'red' : 'black' }}>Lists</Text>
+                <Text style={{ color: focused ? 'red' : 'black' }}>Listas</Text>
               </View>
             )
           }

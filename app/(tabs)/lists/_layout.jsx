@@ -7,8 +7,8 @@ const ListsLayout = () => {
       <Stack.Screen
         name='index' options={
         {
-          headerShown: true,
-          headerTitle: 'Lists'
+          headerShown: false,
+          headerTitle: ''
         }
       }
       />
