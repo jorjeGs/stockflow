@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "15800466130",
+    "project_id": "stockflow-21586",
+    "storage_bucket": "stockflow-21586.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:15800466130:android:6a3925e6b7e612f351cb0b",
+        "android_client_info": {
+          "package_name": "com.yorch.stockflow"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZwbwB6niKN3zhKjHFKpj5uTvzKNajADM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

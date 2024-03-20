@@ -1,12 +1,12 @@
 import React from 'react'
 import { Text, View } from 'react-native'
 
-const ListHomePage = () => {
+const Reports = () => {
   return (
     <View style={{ flexGrow: 1 }}>
-      <Text>Lists Page</Text>
+      <Text style={{ textAlign: 'center' }}>Reporteesssss</Text>
     </View>
   )
 }
 
-export default ListHomePage
+export default Reports

@@ -45,14 +45,14 @@ const TabsLayout = () => {
         }}
       />
       <Tabs.Screen
-        name='lists' options={{
-          title: 'Lists',
+        name='stores' options={{
+          title: 'Tiendas',
           headerShown: false,
           tabBarIcon: ({ focused }) => {
             return (
               <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                <FontAwesome6 name='list-check' size={20} color={focused ? 'red' : 'black'} />
-                <Text style={{ color: focused ? 'red' : 'black' }}>Listas</Text>
+                <FontAwesome6 name='store' size={20} color={focused ? 'red' : 'black'} />
+                <Text style={{ color: focused ? 'red' : 'black' }}>Tiendas</Text>
               </View>
             )
           }
