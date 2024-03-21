@@ -12,7 +12,7 @@ const ItemsLayout = () => {
         }
       }
       />
-      <Stack.Screen name='New' options={{ headerTitle: 'New Item', headerShown: true }} />
+      <Stack.Screen name='New' options={{ headerTitle: 'Nuevo artículo', headerShown: true }} />
       <Stack.Screen
         name='[id]'
         options={{
