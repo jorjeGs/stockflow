@@ -8,7 +8,8 @@ import * as crypto from 'expo-crypto'
 const New = () => {
   const initialItemState = {
     name: '',
-    description: ''
+    description: '',
+    qty: 0
   }
 
   const [state, setState] = useState(initialItemState)

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, View, Image, ScrollView, SafeAreaView } from 'react-native'
+import { Text, View, Image, ScrollView, SafeAreaView, StyleSheet } from 'react-native'
 import { useLocalSearchParams } from 'expo-router'
 import products from '../../../src/data/products'
 
@@ -22,21 +22,30 @@ const Item = () => {
         <View style={{ width: '100%', height: 300 }}>
           <Image style={{ height: '100%', width: '100%', marginRight: 'auto', marginLeft: 'auto', objectFit: 'contain' }} source={{ uri: item.image }} />
         </View>
-        <Text style={{
-          fontSize: 20,
-          fontWeight: 'bold',
-          textAlign: 'center',
-          marginTop: 20
-        }}
-        >${item.price}
-        </Text>
-        <View style={{ flex: 1, flexDirection: 'row', marginTop: 10 }}>
-          <Text>Quantity:</Text>
-          <Text>{1}</Text>
+        <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
+          <Text style={styles.textQty}>Quantity:</Text>
+          <Text style={styles.textQtyValue}>{item}</Text>
+        </View>
+        <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
+          <Text style={styles.textDescription}>{item.description}</Text>
         </View>
       </ScrollView>
     </SafeAreaView>
   )
 }
+
+const styles = StyleSheet.create({
+  textQty: {
+    fontSize: 20,
+    fontWeight: 'bold'
+  },
+  textQtyValue: {
+    fontSize: 20
+  },
+  textDescription: {
+    fontSize: 15,
+    fontWeight: 'bold'
+  }
+})
 
 export default Item
