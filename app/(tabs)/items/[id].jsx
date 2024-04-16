@@ -1,12 +1,27 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Text, View, Image, ScrollView, SafeAreaView } from 'react-native'
 import { useLocalSearchParams } from 'expo-router'
-import products from '../../../src/data/products'
+import { getDatabase, ref, onValue } from 'firebase/database'
 
 const Item = () => {
   const { id } = useLocalSearchParams()
+  const [item, setItem] = useState({})
 
-  const item = products.find(product => product.id === +id)
+  const getItem = () => {
+    const db = getDatabase()
+    onValue(ref(db, `items/${id}`), (snapshot) => {
+      const data = snapshot.val()
+      console.log(data)
+      setItem(data)
+    },
+    {
+      onlyOnce: true
+    })
+  }
+
+  useEffect(() => {
+    getItem()
+  }, [id])
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -17,7 +32,7 @@ const Item = () => {
           textAlign: 'center',
           marginTop: 20
         }}
-        >{item.title}
+        >{item.name}
         </Text>
         <View style={{ width: '100%', height: 300 }}>
           <Image style={{ height: '100%', width: '100%', marginRight: 'auto', marginLeft: 'auto', objectFit: 'contain' }} source={{ uri: item.image }} />
@@ -28,7 +43,7 @@ const Item = () => {
           textAlign: 'center',
           marginTop: 20
         }}
-        >${item.price}
+        >{item.description}
         </Text>
         <View style={{ flex: 1, flexDirection: 'row', marginTop: 10 }}>
           <Text>Quantity:</Text>

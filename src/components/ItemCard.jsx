@@ -27,7 +27,7 @@ const ItemCard = ({ item }) => {
             fontSize: 15,
             fontWeight: 'bold'
           }}
-          >{item.title}
+          >{item.name}
           </Text>
         </View>
         <View style={{ flex: 1, justifyContent: 'center', flexDirection: 'column', alignItems: 'center', padding: 5 }}>
@@ -38,7 +38,7 @@ const ItemCard = ({ item }) => {
           <Image
             style={{ height: '100%', width: '100%', marginRight: 'auto', marginLeft: 'auto', marginBottom: 'auto', marginTop: 'auto', objectFit: 'contain' }}
             source={{
-              uri: item.image
+              uri: 'https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg'
             }}
           />
         </View>
@@ -49,10 +49,9 @@ const ItemCard = ({ item }) => {
 
 ItemCard.propTypes = {
   item: PropTypes.shape({
-    id: PropTypes.number,
-    title: PropTypes.string,
-    image: PropTypes.string,
-    price: PropTypes.number
+    id: PropTypes.string,
+    name: PropTypes.string,
+    image: PropTypes.string
   })
 }
 
