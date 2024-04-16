@@ -54,4 +54,18 @@ const Item = () => {
   )
 }
 
+const styles = StyleSheet.create({
+  textQty: {
+    fontSize: 20,
+    fontWeight: 'bold'
+  },
+  textQtyValue: {
+    fontSize: 20
+  },
+  textDescription: {
+    fontSize: 15,
+    fontWeight: 'bold'
+  }
+})
+
 export default Item
