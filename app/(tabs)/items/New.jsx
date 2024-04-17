@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
-import { Text, View, ScrollView, TextInput, Pressable } from 'react-native'
+import { Text, View, ScrollView, TextInput, Pressable, ActivityIndicator } from 'react-native'
 import { MaterialIcons } from '@expo/vector-icons'
 import { getDatabase, ref, set } from 'firebase/database'
 import { app } from '../../../firebaseConfig'
 import * as crypto from 'expo-crypto'
+import { router } from 'expo-router'
+import Toast from 'react-native-root-toast'
 
 const New = () => {
   const initialItemState = {
@@ -13,6 +15,7 @@ const New = () => {
   }
 
   const [state, setState] = useState(initialItemState)
+  const [isLoading, setIsLoading] = useState(false)
 
   const db = getDatabase(app)
 
@@ -20,14 +23,38 @@ const New = () => {
     setState({ ...state, [name]: value })
   }
 
+  const showToast = (message) => {
+    Toast.show(message, {
+      duration: Toast.durations.SHORT,
+      position: Toast.positions.BOTTOM,
+      shadow: true,
+      animation: true,
+      hideOnPress: true,
+      delay: 0
+    })
+  }
+
   const saveItem = async () => {
+    setIsLoading(true)
     // add a random id to the item
     const newItem = {
       ...state,
       id: crypto.randomUUID()
     }
-    await set(ref(db, 'items/' + newItem.id + '/'), newItem)
+    console.log('hi')
+    showToast('Item saved')
+    // await set(ref(db, 'items/' + newItem.id + '/'), newItem)
+    //   .then(() => {
+    //     setIsLoading(false)
+
+    //     // router.replace({ pathname: 'items' })
+    //   })
+    //   .catch((error) => {
+    //     console.log('Data could not be saved.', error)
+    //     setIsLoading(false)
+    //   })
     // clear state
+    setIsLoading(false)
     setState(initialItemState)
     console.log(newItem)
   }
@@ -36,7 +63,7 @@ const New = () => {
     <ScrollView contentContainerStyle={{ flexGrow: 1, backgroundColor: 'red' }}>
       <View style={styles.container}>
         <TextInput
-          style={styles.input}
+          style={[styles.input]}
           onChangeText={(value) => handleChangeText(value, 'name')}
           value={state.name}
           placeholder='Nombre'
@@ -48,12 +75,15 @@ const New = () => {
           placeholder='Descripción'
         />
         <Pressable
-          style={styles.button}
+          style={[styles.button, isLoading && styles.button_disabled]}
           title='Guardar'
           onPress={saveItem}
+          disabled={isLoading}
         >
-          <Text style={styles.button_text}>Guardar</Text>
-          <MaterialIcons name='save' style={styles.button_icon} color='white' />
+          <Text style={styles.button_text}>
+            {isLoading ? 'Guardando' : 'Guardar'}
+          </Text>
+          {isLoading ? <ActivityIndicator size='large' color='white' /> : <MaterialIcons name='save' style={styles.button_icon} color='white' />}
         </Pressable>
       </View>
     </ScrollView>
@@ -83,6 +113,9 @@ const styles = {
     borderRadius: 60,
     width: '60%',
     height: '13%'
+  },
+  button_disabled: {
+    backgroundColor: 'gray'
   },
   button_text: {
     color: 'white',

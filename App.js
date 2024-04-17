@@ -1,6 +1,11 @@
 import React from 'react'
 import Index from './app/index'
+import { RootSiblingParent } from 'react-native-root-siblings'
 
 export default function App () {
-  return <Index />
+  return (
+    <RootSiblingParent>
+      <Index />
+    </RootSiblingParent>
+  )
 }

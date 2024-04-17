@@ -32,13 +32,13 @@ const ItemCard = ({ item }) => {
         </View>
         <View style={{ flex: 1, justifyContent: 'center', flexDirection: 'column', alignItems: 'center', padding: 5 }}>
           <Text style={{ color: 'gray', fontSize: 10 }}>QTY</Text>
-          <Text style={{ color: 'red', fontSize: 15, fontWeight: 'bold', marginRight: 'auto', marginLeft: 'auto' }}>5</Text>
+          <Text style={{ color: 'red', fontSize: 15, fontWeight: 'bold', marginRight: 'auto', marginLeft: 'auto' }}>{item.qty}</Text>
         </View>
         <View style={{ flex: 2, minHeight: 80 }}>
           <Image
             style={{ height: '100%', width: '100%', marginRight: 'auto', marginLeft: 'auto', marginBottom: 'auto', marginTop: 'auto', objectFit: 'contain' }}
             source={{
-              uri: 'https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg'
+              uri: 'https://cdn-icons-png.flaticon.com/512/3134/3134241.png'
             }}
           />
         </View>
@@ -51,7 +51,8 @@ ItemCard.propTypes = {
   item: PropTypes.shape({
     id: PropTypes.string,
     name: PropTypes.string,
-    image: PropTypes.string
+    image: PropTypes.string,
+    qty: PropTypes.number
   })
 }
 
