@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { View, FlatList } from 'react-native'
+import { View, FlatList, ActivityIndicator, Text } from 'react-native'
 import CustomFloatingButton from '../../../src/components/CustomFloatingButton'
 import ItemCard from '../../../src/components/ItemCard'
 import { getDatabase, ref, onValue } from 'firebase/database'
@@ -7,26 +7,34 @@ import { getDatabase, ref, onValue } from 'firebase/database'
 const ItemsHomePage = () => {
   const [showText, setShowText] = useState(true)
   const [items, setItems] = useState([])
+  const [isLoading, setIsLoading] = useState(false)
 
   const db = getDatabase()
 
   const getItems = () => {
-    const items = []
+    setIsLoading(true)
+    let items = []
+
     onValue(ref(db, 'items'), (snapshot) => {
       const data = snapshot.val()
-      console.log(data)
-      for (const key in data) {
-        items.push({ ...data[key], id: key })
-      }
+      setIsLoading(false)
+      if (!data) return
+      items = Object.keys(data).map((key) => {
+        return {
+          id: key,
+          name: data[key].name,
+          description: data[key].description,
+          qty: data[key].qty
+        }
+      })
       setItems(items)
-    },
-    {
-      onlyOnce: true
+    }, (error) => {
+      setIsLoading(false)
+      console.log('Error: ' + error)
     })
   }
 
   useEffect(() => {
-    // Lógica para cargar los datos de la base de datos
     getItems()
   }, [db])
 
@@ -44,6 +52,8 @@ const ItemsHomePage = () => {
   return (
     <View style={{ flexGrow: 1 }}>
       <View style={{ marginTop: 5, minHeight: '100%' }}>
+        {isLoading && <ActivityIndicator style={{ left: 0, right: 0, bottom: 0, top: 0, position: 'absolute', zIndex: 9999 }} size='large' color='black' />}
+        {items.length === 0 && !isLoading && <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ fontWeight: 'bold', fontSize: 20 }}>No se encontraron articulos</Text></View>}
         <FlatList
           scrollEventThrottle={16}
           onScroll={handleScroll}

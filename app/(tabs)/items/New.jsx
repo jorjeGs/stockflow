@@ -5,7 +5,7 @@ import { getDatabase, ref, set } from 'firebase/database'
 import { app } from '../../../firebaseConfig'
 import * as crypto from 'expo-crypto'
 import { router } from 'expo-router'
-import Toast from 'react-native-root-toast'
+import Toast from 'react-native-toast-message'
 
 const New = () => {
   const initialItemState = {
@@ -13,7 +13,6 @@ const New = () => {
     description: '',
     qty: 0
   }
-
   const [state, setState] = useState(initialItemState)
   const [isLoading, setIsLoading] = useState(false)
 
@@ -23,17 +22,6 @@ const New = () => {
     setState({ ...state, [name]: value })
   }
 
-  const showToast = (message) => {
-    Toast.show(message, {
-      duration: Toast.durations.SHORT,
-      position: Toast.positions.BOTTOM,
-      shadow: true,
-      animation: true,
-      hideOnPress: true,
-      delay: 0
-    })
-  }
-
   const saveItem = async () => {
     setIsLoading(true)
     // add a random id to the item
@@ -41,22 +29,27 @@ const New = () => {
       ...state,
       id: crypto.randomUUID()
     }
-    console.log('hi')
-    showToast('Item saved')
-    // await set(ref(db, 'items/' + newItem.id + '/'), newItem)
-    //   .then(() => {
-    //     setIsLoading(false)
-
-    //     // router.replace({ pathname: 'items' })
-    //   })
-    //   .catch((error) => {
-    //     console.log('Data could not be saved.', error)
-    //     setIsLoading(false)
-    //   })
+    await set(ref(db, 'items/' + newItem.id + '/'), newItem)
+      .then(() => {
+        setIsLoading(false)
+        Toast.show({
+          type: 'success',
+          text1: 'Item guardado!',
+          onPress: () => Toast.hide()
+        })
+        router.back()
+      })
+      .catch((error) => {
+        Toast.show({
+          type: 'error',
+          text1: 'Error al guardar el item',
+          text2: error.message
+        })
+        console.log('Data could not be saved.', error)
+        setIsLoading(false)
+      })
     // clear state
     setIsLoading(false)
-    setState(initialItemState)
-    console.log(newItem)
   }
 
   return (
