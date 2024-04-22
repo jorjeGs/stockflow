@@ -20,6 +20,24 @@ const RootLayout = () => {
         }
       }
       />
+	  <Stack.Screen
+	  	name='login'
+		options=
+		{
+			{
+				headerShown: false,
+				headerTitle: 'Login or Register',
+				headerStyle: {
+					backgroundColor: 'red'
+				},
+				headerTitleStyle: {
+					color: 'white',
+					fontSize: 30,
+					fontWeight: 'bold'
+				}
+			}
+		}
+	  />
     </Stack>
   )
 }
