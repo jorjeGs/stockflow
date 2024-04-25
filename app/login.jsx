@@ -25,19 +25,22 @@ const Login = () => {
 
 	return (
 		<View style={styles.container}>
+			<Text style={styles.title}>StockFlow</Text>
 			<TextInput
 				style={[styles.input]}
+				placeholder='E-mail'
 				onChangeText={(value) => handleChangeText(value, 'username')}
 			/>
 			<TextInput
 				style={[styles.input]}
+				placeholder='Password'
 				onChangeText={(value) => handleChangeText(value, 'password')}
 			/>
-			<Pressable onPress={handleSubmit}>
-				<Text>Submit</Text>
+			<Pressable style={styles.button} onPress={handleSubmit}>
+				<Text style={styles.button_text}>Login</Text>
 			</Pressable>
-			<Pressable onPress={handleRegister}>
-				<Text>Register</Text>
+			<Pressable style={styles.button} onPress={handleRegister}>
+				<Text style={styles.button_text}>Register</Text>
 			</Pressable>
 		</View>
 	)
@@ -45,16 +48,40 @@ const Login = () => {
 
 const styles = StyleSheet.create({
 	container: {
-		flex: 1,
-		justifyContent: 'center',
-		alignItems: 'center'
+		justifyContent: 'space-evenly',
+		alignItems: 'center',
+		flexGrow: 1,
+		padding: 10
+	},
+	title: {
+		fontSize: 40,
+		fontWeight: 'bold',
 	},
 	input: {
-		borderWidth: 1,
 		borderColor: 'black',
+		borderBottomWidth: 1,
 		margin: 10,
-		padding: 10
-	}
+		padding: 10,
+		width: '80%',
+		textAlign: 'center'
+	},
+	button_text: {
+		width: '100%',
+		padding: 10,
+		textAlign: 'center',
+		color: 'white',
+		fontWeight: 'bold',
+		fontSize: 20
+	  },
+	  button: {
+		flexDirection: 'row',
+		alignItems: 'center',
+		backgroundColor: 'red',
+		padding: 10,
+		borderRadius: 100,
+		width: '80%',
+		height: '8%'
+	  },
 })
 
 export default Login
