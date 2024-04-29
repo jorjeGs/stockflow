@@ -1,48 +1,100 @@
 import React, {useState} from 'react'
 import { Text, View, TextInput, Pressable, StyleSheet } from 'react-native'
 import { router } from 'expo-router'
+import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword} from 'firebase/auth'
+import {app} from '../firebaseConfig'
+import Toast from 'react-native-toast-message'
+
 
 const Login = () => {
 	const [userForm, setuserForm] = useState({
-		username: '',
+		email: '',
 		password: ''
 	})
+
+	const [isLoading, setIsLoading] = useState(false)
 
 	const handleChangeText = (value, name) => {
 		setuserForm({ ...userForm, [name]: value })
 	}
+
+	const auth = getAuth(app)
 	
-	const handleSubmit = async () => {
-		//login logic
+	const handleSubmit = () => {
+		setIsLoading(true)
+		signInWithEmailAndPassword(auth, userForm.email, userForm.password)
+		.then((userCredential) => {
+			Toast.show({
+				type: 'success',
+				text1: 'User logged in!',
+				onPress: () => Toast.hide()
+			})
+			setIsLoading(false)
+			const user = userCredential.user
+			console.log(userCredential)
+			router.replace('/home')
+		})
+		.catch((error) => {
+			Toast.show({
+				type: 'error',
+				text1: 'Error logging in',
+				text2: error.message.replace('Firebase: Error (auth/', '').replace(').', '')
+			})
+			setIsLoading(false)
+			console.log('Error logging in', error)
+		})
 		console.log(userForm)
-		router.replace('/home')
 	}
 
-	const handleRegister = async () => {
-		//register logic
+	const handleRegister = () => {
+		//validate first if the user is already registered, Does firebase already have this validation?
+		setIsLoading(true)
+		createUserWithEmailAndPassword(auth, userForm.email, userForm.password)
+		.then((userCredential) => {
+			Toast.show({
+				type: 'success',
+				text1: 'User registered!',
+				onPress: () => Toast.hide()
+			})
+			setIsLoading(false)
+			console.log(userCredential)
+		})
+		.catch((error) => {
+			Toast.show({
+				type: 'error',
+				text1: 'Error registering user',
+				text2: error.message.replace('Firebase:', '')
+			})
+			setIsLoading(false)
+			console.log('Error registering user', error)
+		})
 		console.log(userForm)
 	}
 
 	return (
-		<View style={styles.container}>
-			<Text style={styles.title}>StockFlow</Text>
-			<TextInput
-				style={[styles.input]}
-				placeholder='E-mail'
-				onChangeText={(value) => handleChangeText(value, 'username')}
-			/>
-			<TextInput
-				style={[styles.input]}
-				placeholder='Password'
-				onChangeText={(value) => handleChangeText(value, 'password')}
-			/>
-			<Pressable style={styles.button} onPress={handleSubmit}>
-				<Text style={styles.button_text}>Login</Text>
-			</Pressable>
-			<Pressable style={styles.button} onPress={handleRegister}>
-				<Text style={styles.button_text}>Register</Text>
-			</Pressable>
-		</View>
+		<>
+			<View style={styles.container}>
+				<Text style={styles.title}>StockFlow</Text>
+				<TextInput
+					style={[styles.input]}
+					placeholder='E-mail'
+					onChangeText={(value) => handleChangeText(value, 'email')}
+				/>
+				<TextInput
+					style={[styles.input]}
+					placeholder='Password'
+					onChangeText={(value) => handleChangeText(value, 'password')}
+					secureTextEntry={true}
+				/>
+				<Pressable style={styles.button} onPress={handleSubmit}>
+					<Text style={styles.button_text}>Login</Text>
+				</Pressable>
+				<Pressable style={styles.button} onPress={handleRegister}>
+					<Text style={styles.button_text}>Register</Text>
+				</Pressable>
+			</View>
+			<Toast />
+		</>
 	)
 }
 

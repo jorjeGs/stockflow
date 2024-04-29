@@ -2,6 +2,7 @@ import React from 'react'
 import { Text, View, Pressable, StyleSheet } from 'react-native'
 import { router } from 'expo-router'
 import { Ionicons, FontAwesome5 } from '@expo/vector-icons'
+import { getAuth, signOut } from 'firebase/auth'
 
 const HomePage = () => {
   const stilos = StyleSheet.create({
@@ -30,6 +31,21 @@ const HomePage = () => {
       fontSize: 35
     }
   })
+
+  const auth = getAuth()
+
+  console.log(auth)
+
+  const signOutUser = () => {
+	signOut(auth)
+	  .then(() => {
+		console.log('Sign out successful')
+		router.replace({ pathname: 'login' })
+	  })
+	  .catch((error) => {
+		console.log(error)
+	  })
+  }
 
   return (
     <View style={{ flexGrow: 1 }}>
@@ -60,9 +76,9 @@ const HomePage = () => {
         </Pressable>
         <Pressable
           style={stilos.button}
-          onPress={() => router.push({ pathname: 'reportes' })}
+          onPress={signOutUser}
         >
-          <Text style={stilos.button_text}>Configuracion</Text>
+          <Text style={stilos.button_text}>Cerrar sesión</Text>
           <Ionicons name='settings' style={stilos.button_icon} color='white' />
         </Pressable>
       </View>
