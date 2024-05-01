@@ -21,14 +21,16 @@ const HomePage = () => {
 	  })
   }
 
+  console.log(auth)
+
   return (
     <View style={{ flexGrow: 1 }}>
       <View style={{ flexGrow: 1, flexDirection: 'column', justifyContent: 'space-evenly', alignItems: 'center', padding: 10 }}>
         <Pressable
           style={stilos.button}
           onPress={() => router.push({
-            pathname: 'home/[user]',
-            params: { user: 'John Doe' }
+            pathname: 'home/[user_uid]',
+            params: { user_uid: auth.currentUser.uid }
           })}
         >
           <Text style={stilos.button_text}>Usuario</Text>

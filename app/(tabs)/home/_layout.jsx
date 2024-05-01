@@ -12,7 +12,7 @@ const HomeLayout = () => {
         }}
       />
       <Stack.Screen
-        name='[user]'
+        name='[user_uid]'
         options={{
           headerShown: true,
           headerTitle: 'Usuario'
