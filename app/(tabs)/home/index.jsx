@@ -5,32 +5,6 @@ import { Ionicons, FontAwesome5 } from '@expo/vector-icons'
 import { getAuth, signOut } from 'firebase/auth'
 
 const HomePage = () => {
-  const stilos = StyleSheet.create({
-    button: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      backgroundColor: 'red',
-      padding: 10,
-      borderRadius: 5,
-      width: '100%',
-      height: '15%'
-    },
-    button_text: {
-      width: '50%',
-      padding: 10,
-      textAlign: 'left',
-      color: 'white',
-      fontWeight: 'bold',
-      fontSize: 20
-    },
-    button_icon: {
-      width: '50%',
-      padding: 10,
-      textAlign: 'right',
-      color: 'white',
-      fontSize: 35
-    }
-  })
 
   const auth = getAuth()
 
@@ -85,5 +59,32 @@ const HomePage = () => {
     </View>
   )
 }
+
+const stilos = StyleSheet.create({
+    button: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      backgroundColor: 'red',
+      padding: 10,
+      borderRadius: 5,
+      width: '100%',
+      height: '15%'
+    },
+    button_text: {
+      width: '50%',
+      padding: 10,
+      textAlign: 'left',
+      color: 'white',
+      fontWeight: 'bold',
+      fontSize: 20
+    },
+    button_icon: {
+      width: '50%',
+      padding: 10,
+      textAlign: 'right',
+      color: 'white',
+      fontSize: 35
+    }
+  })
 
 export default HomePage
