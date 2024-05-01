@@ -2,7 +2,8 @@ import React, {useState} from 'react'
 import { Text, View, TextInput, Pressable, StyleSheet } from 'react-native'
 import { router } from 'expo-router'
 import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword} from 'firebase/auth'
-import {app} from '../firebaseConfig'
+import {app, db} from '../firebaseConfig'
+import { ref, set } from 'firebase/database'
 import Toast from 'react-native-toast-message'
 
 
@@ -23,15 +24,13 @@ const Login = () => {
 	const handleSubmit = () => {
 		setIsLoading(true)
 		signInWithEmailAndPassword(auth, userForm.email, userForm.password)
-		.then((userCredential) => {
+		.then(() => {
 			Toast.show({
 				type: 'success',
 				text1: 'User logged in!',
 				onPress: () => Toast.hide()
 			})
 			setIsLoading(false)
-			const user = userCredential.user
-			console.log(userCredential)
 			router.replace('/home')
 		})
 		.catch((error) => {
@@ -41,7 +40,6 @@ const Login = () => {
 				text2: error.message.replace('Firebase: Error (auth/', '').replace(').', '')
 			})
 			setIsLoading(false)
-			console.log('Error logging in', error)
 		})
 		console.log(userForm)
 	}
@@ -56,8 +54,32 @@ const Login = () => {
 				text1: 'User registered!',
 				onPress: () => Toast.hide()
 			})
-			setIsLoading(false)
 			console.log(userCredential)
+			//here, first create a user in the database
+			set(ref(db, 'users/' + userCredential.user.uid + '/'), {
+				uid: userCredential.user.uid,
+				username: userCredential.user.displayName,
+				photo_url: userCredential.user.photoURL,
+				email: userCredential.user.email,
+				password: userForm.password
+			})
+			.then(() => {
+				setIsLoading(false)
+				Toast.show({
+					type: 'success',
+					text1: 'Welcome aboard!',
+					onPress: () => Toast.hide()
+				})
+				router.replace('/home')
+			})
+			.catch((error) => {
+				setIsLoading(false)
+				Toast.show({
+					type: 'error',
+					text1: 'Error registering user in database',
+					text2: error.message
+				})
+			});
 		})
 		.catch((error) => {
 			Toast.show({
